@@ -7,3 +7,5 @@
 ##### Write a Node.js program that reads data from a text file named "input.txt" and writes it to an output file named "output.txt."
 #### Asynchronous Callbacks:
 ##### Implement a function that reads a list of file paths asynchronously and prints the contents of each file in the order they were passed as arguments. Use callback functions to handle asynchronous operations.
+#### Promises:
+##### Create a Node.js program that uses Promises to fetch data from an external API (e.g., JSONPlaceholder) and log the result to the console.

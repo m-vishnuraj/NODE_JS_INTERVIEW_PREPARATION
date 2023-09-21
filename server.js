@@ -1,28 +1,25 @@
-const fs = require("fs");
+const axios = require("axios");
 
-// List of file paths to read
-const filePaths = ["./file1.txt", "./file2.txt", "./file3.txt"];
+// URL of the external API (JSONPlaceholder)
+const apiUrl = "https://jsonplaceholder.typicode.com/posts/1";
 
-// Function to read and print files asynchronously
-function readAndPrintFile(filePaths, index) {
-  if (index === filePaths.length) {
-    console.log("All files read");
-    return;
-  }
-  const filePath = filePaths[index];
-
-  // Read the content of the current file asynchronously
-  fs.readFile(filePath, "utf-8", (err, data) => {
-    if (err) {
-      console.log(`Error reading file: ${filePath} : ${err}`);
-    } else {
-      console.log(`File content of ${filePath} : \n${data}`);
-    }
-
-    // Read the next file
-    readAndPrintFile(filePaths, index + 1);
-  });
+// Function to fetch data from the API using Promises
+function fetchData() {
+  return axios
+    .get(apiUrl)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw error;
+    });
 }
 
-// Start reading the files
-readAndPrintFile(filePaths, 0);
+// Call the fetchData function and log the result
+fetchData()
+  .then((data) => {
+    console.log("Data from the API:", data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error.message);
+  });
