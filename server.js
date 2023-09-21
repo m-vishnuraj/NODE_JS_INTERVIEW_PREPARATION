@@ -1,23 +1,28 @@
 const fs = require("fs");
 
-// Define the input and output file paths
-const inputFile = "input.txt";
-const outputFile = "output.txt";
+// List of file paths to read
+const filePaths = ["./file1.txt", "./file2.txt", "./file3.txt"];
 
-// Read data from the input file
-fs.readFile(inputFile, "utf8", (err, data) => {
-  if (err) {
-    console.error(`Error reading ${inputFile}: ${err}`);
+// Function to read and print files asynchronously
+function readAndPrintFile(filePaths, index) {
+  if (index === filePaths.length) {
+    console.log("All files read");
     return;
   }
+  const filePath = filePaths[index];
 
-  // Write the data to the output file
-  fs.writeFile(outputFile, data, "utf8", (err) => {
+  // Read the content of the current file asynchronously
+  fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
-      console.error(`Error writing to ${outputFile}: ${err}`);
-      return;
+      console.log(`Error reading file: ${filePath} : ${err}`);
+    } else {
+      console.log(`File content of ${filePath} : \n${data}`);
     }
 
-    console.log(`Data from ${inputFile} has been written to ${outputFile}`);
+    // Read the next file
+    readAndPrintFile(filePaths, index + 1);
   });
-});
+}
+
+// Start reading the files
+readAndPrintFile(filePaths, 0);
