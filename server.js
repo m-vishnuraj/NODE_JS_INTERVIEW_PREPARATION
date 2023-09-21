@@ -1,21 +1,23 @@
-// import http module
+const fs = require("fs");
 
-const http = require("http");
+// Define the input and output file paths
+const inputFile = "input.txt";
+const outputFile = "output.txt";
 
-// create a http server
+// Read data from the input file
+fs.readFile(inputFile, "utf8", (err, data) => {
+  if (err) {
+    console.error(`Error reading ${inputFile}: ${err}`);
+    return;
+  }
 
-const server = http.createServer((req, res) => {
-  // Set the response header with a status code of 200 (OK) and content type
-  res.writeHead(200, { "Content-Type": "text/plain" });
+  // Write the data to the output file
+  fs.writeFile(outputFile, data, "utf8", (err) => {
+    if (err) {
+      console.error(`Error writing to ${outputFile}: ${err}`);
+      return;
+    }
 
-  // Write the "Hello, World!" message to the response
-  res.end("hello Server");
-});
-
-// listen to port 3000
-
-const Port = 3000;
-
-server.listen(Port, () => {
-  console.log(`Server is running on port ${Port}`);
+    console.log(`Data from ${inputFile} has been written to ${outputFile}`);
+  });
 });
